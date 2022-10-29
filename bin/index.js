@@ -17,7 +17,6 @@ function myParseInt(value, dummyPrevious) {
 program
   .command('process')
   .argument('<first>', 'author name')
-  //.argument('[second]', 'integer argument', myParseInt, 1000)
   .action((author) => {
 	lib.runProcess(author)
   });
