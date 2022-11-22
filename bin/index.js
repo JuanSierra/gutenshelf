@@ -1,24 +1,39 @@
 #!/usr/bin/env node
 
-const { Command } = require('commander');
+const commander  = require('commander');
 const lib = require('../lib/main');
 
-const program = new Command();
+const program = new commander.Command();
 
-function myParseInt(value, dummyPrevious) {
-  // parseInt takes a string and a radix
+
+function parsePort(value) {
+  console.log(value)
   const parsedValue = parseInt(value, 10);
   if (isNaN(parsedValue)) {
     throw new commander.InvalidArgumentError('Not a number.');
   }
+  
   return parsedValue;
 }
 
 program
-  .command('process')
-  .argument('<first>', 'author name')
-  .action((author) => {
-	lib.runProcess(author)
+  .command('search')
+  .argument('<term>', 'Words to search in titles or authors of books.')
+  .description('Use a search term in author and titles existing in the Gutenberg library.')
+  .option('-nl, --no-launch', 'Generate HTML without serve it locally.')
+  .option('-p, --port <number>', 'Local port to serve the generated site.', parsePort)
+  .action((term, options) => {
+	  lib.search(term, null, options)
+  });
+
+  program
+  .command('topic')
+  .argument('<term>', 'Words to search by book topic.')
+  .description('Use a search term for a topic existing in the Gutenberg library.')
+  .option('-nl, --no-launch', 'Generate HTML without serve it locally.')
+  .option('-p, --port <number>', 'Local port to serve the generated site.', parsePort)
+  .action((topic, options) => {
+	  lib.search(null, topic, options)
   });
 
 program.parse();
