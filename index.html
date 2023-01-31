@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="utf-8">
-  <title>Books</title>
+  <title>Virtual Bookshelf</title>
    
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -68,7 +68,6 @@
 
     .card-title{
 	    display: block;
-		width:200px;
 		line-height: 2rem;
 		max-height: 8rem;
 		font-size: 0.8rem;
@@ -90,14 +89,13 @@
     function filterByOption(card, val)
     {
         if(selected != ""){
-            console.log(selected)
-
             let current = document.getElementById(selected);
             current.classList.remove("bg-secondary");  
             current.blur();
         }
         
         let filtered;
+
         if(val == selected){
             filtered = data.map(b=>b.id);
         }else{
@@ -117,7 +115,6 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         books = document.querySelectorAll(".card");
-        //console.log(Array.from(books).map(b => b.getAttribute('data-topics')))
         data = Array.from(books).map(b => {return {id: b.id, topics: b.getAttribute('data-topics')}} );
     });
   </script>
@@ -161,11 +158,15 @@
                 
                 <div class="column col-3 hide-xs ">
                     <div id="topics-menu" class="rows row-auto">
+                        {% assign topics = '' | split: '' %}
                         {% for book in books %}
                             {% if book.topics.length > 0  %}
                                 {% for topic in book.topics %}
-                                    <button id="{{topic}}" class="btn btn-link d-flex"
-                                    onclick="filterByOption(this, '{{topic}}')">#{{ topic }}</button>
+                                    {% unless topics contains topic %}
+                                        <button id="{{topic}}" class="btn btn-link d-flex"
+                                        onclick="filterByOption(this, '{{topic}}')">#{{ topic }}</button>
+                                        {% assign topics = topics | concat: topic %}
+                                    {% endunless %}   
                                 {% endfor %}
                             {% endif %}        
                         {% endfor %}
@@ -176,9 +177,6 @@
         </div>
     </div>
         
-        
 </body>
-
-
 
  </html>

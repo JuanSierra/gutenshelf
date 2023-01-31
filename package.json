@@ -1,7 +1,7 @@
 {
   "name": "gutenshelf",
   "version": "0.1.0",
-  "description": "CLI for creating an HTML bookshelf from Gutenberg searches",
+  "description": "CLI for creating an HTML bookshelf from Gutenberg search results ",
   "main": "index.js",
   "bin": {
     "gts": "./bin/index.js"

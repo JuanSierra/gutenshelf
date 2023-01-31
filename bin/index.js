@@ -20,7 +20,7 @@ program
   .command('search')
   .argument('<term>', 'Words to search in titles or authors of books.')
   .description('Use a search term in author and titles existing in the Gutenberg library.')
-  .option('-nl, --no-launch', 'Generate HTML without serve it locally.')
+  .option('-ns, --noserve', 'Generate HTML without serve it locally.')
   .option('-p, --port <number>', 'Local port to serve the generated site.', parsePort)
   .action((term, options) => {
 	  lib.search(term, null, options)
@@ -30,7 +30,7 @@ program
   .command('topic')
   .argument('<term>', 'Words to search by book topic.')
   .description('Use a search term for a topic existing in the Gutenberg library.')
-  .option('-nl, --no-launch', 'Generate HTML without serve it locally.')
+  .option('-ns, --noserve', 'Generate HTML without serve it locally.')
   .option('-p, --port <number>', 'Local port to serve the generated site.', parsePort)
   .action((topic, options) => {
 	  lib.search(null, topic, options)
