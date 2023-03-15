@@ -86,8 +86,47 @@
     let books;
     let data;
 
-    function filterByOption(card, val)
-    {
+    function search(term){
+        var tokens = term
+                  .toLowerCase()
+                  .split(' ')
+                  .filter(function(token){
+                    return token.trim() !== '';
+                  });
+				  
+		if (tokens.length==0){
+			books.forEach((b) =>
+			{
+				b.style.animation = "fadein 2s" ;
+				b.style.display = "flex" ;
+			});
+		}
+		
+		if(tokens.length) {
+            var searchTermRegex = new RegExp(tokens.join('|'), 'gim');
+            var filteredList = data.filter(function(book){
+            
+            var bookString = '';
+            for(var key in book) {
+                if(book.hasOwnProperty(key) && book[key] !== '') {
+                bookString += book[key].toString().toLowerCase().trim() + ' ';
+                }
+            }
+            return bookString.match(searchTermRegex);
+            });
+
+            // Render the search results
+            //console.log(filteredList
+			var filtered = filteredList.map(b=>b.id);
+			books.forEach((b) =>
+			{
+				b.style.animation = (filtered.includes(b.id)) ? "fadein 2s" : "fadein 0";
+				b.style.display = (filtered.includes(b.id)) ? "flex" : "none";
+			});
+        }
+    }
+
+    function filterByOption(card, val){
         if(selected != ""){
             let current = document.getElementById(selected);
             current.classList.remove("bg-secondary");  
@@ -115,7 +154,12 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         books = document.querySelectorAll(".card");
-        data = Array.from(books).map(b => {return {id: b.id, topics: b.getAttribute('data-topics')}} );
+        data = Array.from(books).map(b => {return {
+			id: b.id, 
+			topics: b.getAttribute('data-topics'),
+			title: b.querySelector('.card-header .card-title').innerText,
+			subtitle: b.querySelector('.card-header .card-subtitle').innerText
+		}} );
     });
   </script>
  </head>
