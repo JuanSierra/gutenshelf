@@ -10,12 +10,12 @@ Tool to create a digital bookshelf from search results on Gutenberg library
 # Features
 
 * Search by author/title or topic
-* Gallery UI
-* Filters by topic
+* Book Gallery UI
+* Side navigation by topic
 * Preview locally
 
 # Demo
-[Virtual bookshelf created from "gts H. G. Wells"] (https://www.gutenberg.org/)
+[Virtual bookshelf created from "gts search H. G. Wells"](https://steady-truffle-26163f.netlify.app/)
 
 # Getting Started
 
@@ -54,5 +54,5 @@ Send the search term to the gutendex API looking for matches on topics, then sav
 Node, Eleventy, JS
 
 # Related
-[Project Gutenberg] (https://www.gutenberg.org/)
-[Gutendex](https://gutendex.com/)
+* [Project Gutenberg](https://www.gutenberg.org/)
+* [Gutendex](https://gutendex.com/)
